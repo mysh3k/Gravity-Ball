@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw13wmbcnh8id"]
+
+[ext_resource type="Script" path="res://Scripts/Platform.gd" id="1_n7g4j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fouxv"]
+size = Vector2(82, 22)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ag5os"]
+
+[node name="Platform" type="StaticBody2D"]
+script = ExtResource("1_n7g4j")
+y = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fouxv")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CollisionShape2D"]
+modulate = Color(0.584314, 0.184314, 0.313726, 1)
+mesh = SubResource("QuadMesh_ag5os")

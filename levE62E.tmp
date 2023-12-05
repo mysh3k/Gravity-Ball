@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnrhuacfw8hjr"]
+
+[ext_resource type="PackedScene" uid="uid://mruof4y3epto" path="res://Player/Player.tscn" id="1_e2onj"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_vxgd2"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1flc"]
+size = Vector2(600, 44)
+
+[sub_resource type="QuadMesh" id="QuadMesh_b2uas"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs2jk"]
+size = Vector2(114, 597.688)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sab7b"]
+size = Vector2(291, 35.4558)
+
+[node name="Level1" type="Node2D"]
+position = Vector2(9, 34)
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(183, 89)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
+modulate = Color(0.462745, 0.654902, 0.882353, 1)
+position = Vector2(183, 270)
+scale = Vector2(5.93, 0.37)
+mesh = SubResource("QuadMesh_vxgd2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2(183.5, 269)
+shape = SubResource("RectangleShape2D_o1flc")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(190, -196)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform2"]
+modulate = Color(0.462745, 0.654902, 0.882353, 1)
+position = Vector2(122.5, -131)
+scale = Vector2(6.01, 0.44)
+mesh = SubResource("QuadMesh_vxgd2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+position = Vector2(123, -132)
+shape = SubResource("RectangleShape2D_o1flc")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-109, -122)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+modulate = Color(0.870588, 0.933333, 0.490196, 1)
+position = Vector2(30.5, 61.5)
+scale = Vector2(113, 595)
+mesh = SubResource("QuadMesh_b2uas")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(30, 61.1563)
+shape = SubResource("RectangleShape2D_gs2jk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="StaticBody2D"]
+position = Vector2(-112, -140)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D/StaticBody2D"]
+modulate = Color(0.870588, 0.933333, 0.490196, 1)
+position = Vector2(898.25, 244.25)
+scale = Vector2(115.5, 593.5)
+mesh = SubResource("QuadMesh_b2uas")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/StaticBody2D"]
+position = Vector2(898.25, 244.438)
+shape = SubResource("RectangleShape2D_gs2jk")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-50, 363)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-0.999992, -4)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_sab7b")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 768.0
+offset_top = -78.0
+offset_right = 889.0
+offset_bottom = -34.0
+text = "Positive X"
+
+[node name="Player" parent="." instance=ExtResource("1_e2onj")]
+position = Vector2(349, -71)
+motion_mode = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 241.0
+offset_top = 411.0
+offset_right = 362.0
+offset_bottom = 455.0
+text = "Positive Y"
