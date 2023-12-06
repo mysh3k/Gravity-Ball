@@ -4,9 +4,30 @@ extends CharacterBody2D
 @export var gravity: float = 200
 @export var max_velocity: float = 500  # The maximum velocity
 @export var bounce_cooldown: float = 0.75  # Time in seconds to allow next bounce
+@export var max_health: float = 100
+@export var health: float = max_health
 
 var bounce_factor: float = 0.5  # Adjust this for more/less bounce
 var time_since_last_collision = 0.0  # Timer variable
+
+func health_manager(amount: float):
+	var healthbar = $HealthBar
+	# Heal & damage logic
+	health = min(health + amount, max_health)
+	# Player death
+	if health <= 0:
+		queue_free()
+	healthbar.value = health
+
+func collision_damage(collision):
+	var impact_speed = velocity.length()
+	# Calculating fall/collision damage based on your velocity and collision angle
+	if impact_speed > 300:
+		var collision_angle = acos(velocity.normalized().dot(collision.get_normal()))
+		var angle_factor = abs(cos(collision_angle))  # More damage on head-on collision
+		var damage = (impact_speed / 30) * angle_factor
+		print(damage)
+		health_manager(-damage)
 
 func _physics_process(delta):
 	# Get rotation direction from input
@@ -38,11 +59,11 @@ func _physics_process(delta):
 	if get_slide_collision_count() > 0:
 		var collision = get_slide_collision(0)
 		if collision != null and time_since_last_collision > bounce_cooldown:# and velocity.length() > 5:
+			collision_damage(collision)
 			print("Pre-bounce velocity: ", velocity)
 			print("Collision normal: ", collision.get_normal())
 			velocity = velocity.bounce(collision.get_normal()) * bounce_factor
 			print("Post-bounce velocity: ", velocity)
-			
 		time_since_last_collision = 0.0
 		print(motion_mode)
 		
