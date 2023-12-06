@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var bounce_cooldown: float = 0.75  # Time in seconds to allow next bounce
 @export var max_health: float = 100
 @export var health: float = max_health
+@onready var speedbar = $SpeedBar
 
 var bounce_factor: float = 0.5  # Adjust this for more/less bounce
 var time_since_last_collision = 0.0  # Timer variable
@@ -18,6 +19,15 @@ func health_manager(amount: float):
 	if health <= 0:
 		queue_free()
 	healthbar.value = health
+
+func speedbar_manager():
+	# Shows our current speed (in % atm) changes color to blood red if we can take collision damage
+	var speed = velocity.length()
+	speedbar.value = speed
+	if speed < 300:
+		speedbar.modulate = '#bd262a75'
+	elif speed > 300:
+		speedbar.modulate = '#f70000'
 
 func collision_damage(collision):
 	var impact_speed = velocity.length()
@@ -72,3 +82,4 @@ func _physics_process(delta):
 		velocity = velocity.normalized() * max_velocity
 		
 	move_and_slide()
+	speedbar_manager()
