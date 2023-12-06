@@ -14,25 +14,25 @@ func _physics_process(delta):
 
 	# Rotate the character
 	rotation += rotation_speed * direction * delta # Rotate camera based on direction Input
-	rotation = fmod(rotation + PI, 2 * PI) - PI # No idea what's that
+	rotation = fmod(rotation + PI, 2 * PI) - PI # No idea what's that I think it doesn't change anything
 
-	# Calculate the gravity direction based on the rotation
+	# Calculate the gravity direction based on the player/camera rotation
 	var gravity_dir = Vector2(-sin(rotation), cos(rotation))
 
 	# Calculate the gravity vector
 	var gravity_vector = gravity_dir * gravity
 
-	# Apply gravity to the character's velocity
+	# Apply gravity vector to the character's velocity
 	velocity += gravity_vector * delta
 	
 	if get_slide_collision_count() == 0:
 		time_since_last_collision += delta  # Increment timer
 	
+	# If no collision detected for > bounce cooldown change player motion to floating
 	if time_since_last_collision > bounce_cooldown:
 		motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	else:
 		motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
-	#print(time_since_last_collision, bounce_cooldown, get_slide_collision_count())
 
 	# Check for collisions
 	if get_slide_collision_count() > 0:
@@ -41,18 +41,10 @@ func _physics_process(delta):
 			print("Pre-bounce velocity: ", velocity)
 			print("Collision normal: ", collision.get_normal())
 			velocity = velocity.bounce(collision.get_normal()) * bounce_factor
-			#if abs(velocity.x) > abs(velocity.y):
-				#velocity.x = -velocity.x * bounce_factor
-				#velocity.y = velocity.y * collision.get_normal().y
-			#elif abs(velocity.y) > abs(velocity.x):
-				#velocity.y = -velocity.y * bounce_factor
-				#velocity.x = velocity.x * collision.get_normal().x
-			
 			print("Post-bounce velocity: ", velocity)
 			
 		time_since_last_collision = 0.0
 		print(motion_mode)
-
 		
 	# Cap the velocity after applying gravity
 	if velocity.length() > max_velocity:
