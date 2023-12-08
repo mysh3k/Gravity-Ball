@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd7koftjabiae"]
+
+[ext_resource type="Script" path="res://GUI/LevelSelection.gd" id="1_ywlql"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cjwat"]
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
+[node name="LevelSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ywlql")
+levels_dir = "res://Levels"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 647.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 237.0
+offset_bottom = 72.0
+text = "Select Level"
+label_settings = SubResource("LabelSettings_cjwat")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 63.0
+offset_right = 1120.0
+offset_bottom = 570.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2

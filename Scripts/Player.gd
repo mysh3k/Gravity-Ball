@@ -6,13 +6,15 @@ extends CharacterBody2D
 @export var bounce_cooldown: float = 0.75  # Time in seconds to allow next bounce
 @export var max_health: float = 100
 @export var health: float = max_health
+
+
 @onready var speedbar = $SpeedBar
+@onready var healthbar = $HealthBar
 
 var bounce_factor: float = 0.5  # Adjust this for more/less bounce
 var time_since_last_collision = 0.0  # Timer variable
 
 func health_manager(amount: float):
-	var healthbar = $HealthBar
 	# Heal & damage logic
 	health = min(health + amount, max_health)
 	# Player death
